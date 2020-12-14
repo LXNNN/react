@@ -6,23 +6,13 @@ import { HashRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
 import store from './Redux/store';
 import Account from './Comp/Account';
 import AccoutRedux from './Comp/AccountRedux';
+import Topics from './Comp/Topics';
 import './App.css';
 let { subscribe, dispatch, getState } = store;
 
 class App extends Component {
   componentDidMount(){
-    // fetch("/api/test/profile",{
-    //   method:"GET",
-    //   credentials: 'include'
-    // }).then((response)=>{
-    //     console.log(response);
-      
-    //     return response.json()
-    // }).then((response)=>{
-    //     console.log(response)
-    // }).catch((error)=>{
-    //     console.log(error)
-    // })
+
   }
   render() {
     let data = getState();
@@ -40,6 +30,10 @@ class App extends Component {
             <Link to='/reduxRedux'>
               <span>react-redux示例</span>
             </Link>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <Link to='/topics'>
+              <span>router嵌套示例</span>
+            </Link>
             {/* <div>{data.account}</div>
             <div>
               <button onClick={() => store.dispatch(addTodo(1))}>+</button>
@@ -54,10 +48,16 @@ class App extends Component {
             react-redux
             _____________________________________________________________________
             <AccoutRedux /> */}
-              {/* <Route path='/' exact component={Home}></Route> */}
               <Switch> 
-                <Route path='/redux' exact component={Account}></Route>
-                <Route path='/reduxRedux' exact component={AccoutRedux}></Route>
+                <Route path='/redux'>
+                  <Account />
+                </Route>
+                <Route path='/reduxRedux'>
+                  <AccoutRedux />
+                </Route>
+                <Route path='/topics'>
+                  <Topics />
+                </Route>
                 <Redirect to="/redux" from='/' exact /> 
               </Switch>
             
