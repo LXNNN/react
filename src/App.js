@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
 // import  reducer from './Redux/reducer';
 // import { addTodo } from './Redux/creatAction';
 import store from './Redux/store';
-import Account from './Comp/Account';
-import AccoutRedux from './Comp/AccountRedux';
-import Topics from './Comp/Topics';
+// import Account from './Comp/Account';
+// import AccoutRedux from './Comp/AccountRedux';
+// import Topics from './Comp/Topics';
 import './App.css';
 let { subscribe, dispatch, getState } = store;
+
+//懒加载
+const ReduxComp = lazy(() => import('./Comp/Account'));
+const ReactReduxComp = lazy(() => import('./Comp/AccountRedux'));
+const TopicsComp = lazy(() => import('./Comp/Topics'));
 
 class App extends Component {
   componentDidMount(){
@@ -48,19 +53,14 @@ class App extends Component {
             react-redux
             _____________________________________________________________________
             <AccoutRedux /> */}
+            <Suspense fallback={<div>Loading...</div>}>
               <Switch> 
-                <Route path='/redux'>
-                  <Account />
-                </Route>
-                <Route path='/reduxRedux'>
-                  <AccoutRedux />
-                </Route>
-                <Route path='/topics'>
-                  <Topics />
-                </Route>
+                <Route path='/redux' component={ReduxComp}></Route>
+                <Route path='/reduxRedux' component={ReactReduxComp}></Route>
+                <Route path='/topics' component={TopicsComp}></Route>
                 <Redirect to="/redux" from='/' exact /> 
               </Switch>
-            
+            </Suspense>
           </div>
         </HashRouter>
       </Provider>
