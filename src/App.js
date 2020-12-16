@@ -7,6 +7,7 @@ import store from './Redux/store';
 // import Account from './Comp/Account';
 // import AccoutRedux from './Comp/AccountRedux';
 // import Topics from './Comp/Topics';
+import Parent from './Comp/Parent';
 import './App.css';
 let { subscribe, dispatch, getState } = store;
 
@@ -63,6 +64,7 @@ class App extends Component {
             </Suspense>
           </div>
         </HashRouter>
+        <Parent />
       </Provider>
     );
   }
